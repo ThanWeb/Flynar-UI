@@ -36,6 +36,7 @@ const Header = (): ReactElement => {
               <FontAwesomeIcon icon={faArrowRightToBracket} className='me-2' /> Masuk
             </Link>
           </div>
+
         </nav>
       </header>
     </>
