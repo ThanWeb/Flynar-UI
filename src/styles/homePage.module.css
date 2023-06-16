@@ -1,0 +1,10 @@
+.placeholder::placeholder {
+    color: #7126B5;
+}
+
+.datePicker {
+    width: 140px;
+    cursor: pointer;
+    outline: none;
+}
+
