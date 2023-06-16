@@ -7,9 +7,9 @@ const Login = (): ReactElement => {
   return (
     <div>
       <div className='d-flex'>
-        <div className='position-relative' style={{ width: '50%', height: '100vh', backgroundImage: 'url("/assets/bgLogin.png")' }}>
-          <Image src='/assets/logoTiketku.png' width={264} height={146} alt='' className='position-absolute img-fluid' style={{ top: '130px', left: '85px' }} />
-          <Image src='/assets/bgFlower.png' width={719} height={498} alt='' className='position-absolute img-fluid' style={{ bottom: '50px' }} />
+        <div className='position-position-relative' style={{ width: '50%', height: '100vh', backgroundImage: 'url("/assets/bgLogin.png")' }}>
+          <Image src='/assets/logoTiketku.png' width={264} height={146} alt='' className='position-absolute' style={{ top: '130px', left: '85px' }} />
+          <Image src='/assets/bgFlower.png' width={719} height={498} alt='' className='position-absolute' style={{ bottom: '50px' }} />
         </div>
         <div className='d-flex align-items-center justify-content-center' style={{ width: '50%', height: '100vh' }}>
           <div>
