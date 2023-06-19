@@ -8,3 +8,18 @@
     outline: none;
 }
 
+.active {
+    color: white;
+}
+
+.inactive {
+    color: #808080;
+}
+
+.bgPurple {
+    background-color: #7126B5;
+}
+
+.bgLightPurple {
+    background-color: #E2D4F0;
+}

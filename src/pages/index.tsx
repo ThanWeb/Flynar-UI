@@ -4,7 +4,6 @@ import type { ReactElement } from 'react'
 import { createPortal } from 'react-dom';
 import DefaultLayout from '@/layouts/default'
 import Image from 'next/image'
-import SearchPortal from '../components/SearchPortal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlaneDeparture, faRetweet, faMagnifyingGlass, faCalendarDays, faCouch } from '@fortawesome/free-solid-svg-icons'
@@ -40,6 +39,12 @@ const Home = (): React.ReactElement => {
   const [departureDate, setDepartureDate] = useState(new Date());
   const [returnDate, setReturnDate] = useState(new Date());
 
+  const [activeButton, setActiveButton] = useState('Semua');
+
+  const handleClickButton = (button: string) => {
+    setActiveButton(button);
+  };
+
   return (
     <main>
       <div className='d-flex justify-content-center position-relative'>
@@ -65,7 +70,7 @@ const Home = (): React.ReactElement => {
                     <p style={{ fontWeight: '400', fontSize: '14px', lineHeight: '20px' }}>From</p>
                   </div>
                   <div className='inputanFlight' style={{ width: '300px', height: '40px', borderBottom: '2px solid #D0D0D0' }}>
-                    <SearchPortal />
+                  <input placeholder='Pilih Lokasi' type='text' className={`border-0 w-100 ${styles.placeholder}`} style={{ fontWeight: '500', fontSize: '18px', lineHeight: '26px', outline: 'none' }}/>
                   </div>
                 </div>
                 <button className='bg-black rounded-3' style={{ border: 'none', backgroundColor: 'transparent', height: '30px', width: '33px' }}>
@@ -132,24 +137,90 @@ const Home = (): React.ReactElement => {
           </form>
           <div className='mt-3'>
             <p style={{ fontWeight: '700', fontSize: '16px', lineHeight: '24px' }}>Destinasi Favorit</p>
-            <div className='d-flex justify-content-start flex-wrap'>
-              <button className='border-0 text-white p-2 px-3 me-3 mb-3' style={{ backgroundColor: '#7126B5', borderRadius: '12px' }}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/> Semua
+            <div className={`d-flex justify-content-start flex-wrap ${styles.buttonGroup}`}>
+              <button
+                className={`border-0 p-2 px-3 me-3 mb-3 ${
+                  activeButton === 'Semua' ? `${styles.bgPurple} ${styles.active}` : styles.bgLightPurple
+                }`}
+                onClick={() => handleClickButton('Semua')}
+                style={{ borderRadius: '12px' }}
+              >
+                <span
+                  className={`${activeButton === 'Semua' ? styles.active : styles.inactive}`}
+                >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  Semua
+                </span>
               </button>
-              <button className='border-0 text-black-50 p-2 px-3 me-4 mb-3' style={{ backgroundColor: '#E2D4F0', borderRadius: '12px' }}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/> Asia
+              <button
+                className={`border-0 p-2 px-3 me-4 mb-3 ${
+                  activeButton === 'Asia' ? `${styles.bgPurple} ${styles.active}` : styles.bgLightPurple
+                }`}
+                onClick={() => handleClickButton('Asia')}
+                style={{ borderRadius: '12px' }}
+              >
+                <span
+                  className={`${activeButton === 'Asia' ? styles.active : styles.inactive}`}
+                >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  Asia
+                </span>
               </button>
-              <button className='border-0 text-black-50 p-2 px-3 me-4 mb-3' style={{ backgroundColor: '#E2D4F0', borderRadius: '12px' }}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/> Amerika
+              <button
+                className={`border-0 p-2 px-3 me-4 mb-3 ${
+                  activeButton === 'Amerika' ? `${styles.bgPurple} ${styles.active}` : styles.bgLightPurple
+                }`}
+                onClick={() => handleClickButton('Amerika')}
+                style={{ borderRadius: '12px' }}
+              >
+                <span
+                  className={`${activeButton === 'Amerika' ? styles.active : styles.inactive}`}
+                >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  Amerika
+                </span>
               </button>
-              <button className='border-0 text-black-50 p-2 px-3 me-4 mb-3' style={{ backgroundColor: '#E2D4F0', borderRadius: '12px' }}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/> Australia
+              <button
+                className={`border-0 p-2 px-3 me-4 mb-3 ${
+                  activeButton === 'Australia' ? `${styles.bgPurple} ${styles.active}` : styles.bgLightPurple
+                }`}
+                onClick={() => handleClickButton('Australia')}
+                style={{ borderRadius: '12px' }}
+              >
+                <span
+                  className={`${activeButton === 'Australia' ? styles.active : styles.inactive}`}
+                >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  Australia
+                </span>
               </button>
-              <button className='border-0 text-black-50 p-2 px-3 me-4 mb-3' style={{ backgroundColor: '#E2D4F0', borderRadius: '12px' }}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/> Eropa
+              <button
+                className={`border-0 p-2 px-3 me-4 mb-3 ${
+                  activeButton === 'Eropa' ? `${styles.bgPurple} ${styles.active}` : styles.bgLightPurple
+                }`}
+                onClick={() => handleClickButton('Eropa')}
+                style={{ borderRadius: '12px' }}
+              >
+                <span
+                  className={`${activeButton === 'Eropa' ? styles.active : styles.inactive}`}
+                >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  Eropa
+                </span>
               </button>
-              <button className='border-0 text-black-50 p-2 px-3 me-4 mb-3' style={{ backgroundColor: '#E2D4F0', borderRadius: '12px' }}>
-                <FontAwesomeIcon icon={faMagnifyingGlass}/> Afrika
+              <button
+                className={`border-0 p-2 px-3 me-4 mb-3 ${
+                  activeButton === 'Afrika' ? `${styles.bgPurple} ${styles.active}` : styles.bgLightPurple
+                }`}
+                onClick={() => handleClickButton('Afrika')}
+                style={{ borderRadius: '12px' }}
+              >
+                <span
+                  className={`${activeButton === 'Afrika' ? styles.active : styles.inactive}`}
+                >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  Afrika
+                </span>
               </button>
             </div>
             <div className='d-flex flex-wrap'>
