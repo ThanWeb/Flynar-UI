@@ -4,6 +4,10 @@ import { Fragment, useEffect } from 'react'
 import type { Page } from '../types/page'
 import '@/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
+config.autoAddCss = false
 
 type Props = AppProps & {
   Component: Page

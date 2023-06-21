@@ -1,7 +1,7 @@
-import type { ReactElement } from 'react'
+import type { ReactElement} from 'react'
 import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faDollarSign, faArrowLeft, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { faCube, faHeart, faDollarSign, faArrowLeft, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import Header from '../../components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,17 +12,17 @@ const SearchFlight = (): ReactElement => {
   const [filterParameter, setFilterParameter] = useState('Harga - Termurah')
   const [flightData, setFlightData] = useState([])
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const getFlightData = async () => {
     const response = await axios.get('http://localhost:8000/api/v1/flights')
-    setFlightData(response)
+    
+    setFlightData( response )
   }
   console.log(flightData)
   console.log(flightData.data)
   useEffect(()=>{
     getFlightData()
   },[])
-
+ 
   const onOptionChange = e => {
     setFilterParameter(e.target.value)
   }
@@ -44,18 +44,12 @@ const SearchFlight = (): ReactElement => {
             <span className='badge text-black justify-content-center' style={{ width: '100px', height: '46px', textAlign: 'center', display: 'flex', alignItems: 'center', border: ' 1px solid black' }}>Senin</span>
           </div>
           <div className='filter-section'>
-            <div className='price-filter-button' style={{ display: 'flex', justifyContent: 'end', padding: '30px 0 30px 0' }}>
-              <button type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' style={{ width: 'full', height: '32px', border: '1px solid #A06ECE', borderRadius: '16px ', color: '#7126B5', fontSize: '12px', marginLeft: 'auto', paddingRight: '10px'}}><FontAwesomeIcon icon={faArrowUp} style={{ color: '#7126B5', paddingLeft: '10px' }} /><FontAwesomeIcon icon={faArrowDown} style={{ color: '#7126B5', paddingRight: '5px' }}/>{filterParameter}</button>
+            <div className='price-filter-button' style={{ display: 'flex', justifyContent: 'end', padding: '30px 0 30px 0' }}>              
+              <button style={{ width: '108px', height: '32px', border: '1px solid #A06ECE', borderRadius: '16px ', color: '#7126B5', fontSize: '12px', marginLeft: 'auto' }}><FontAwesomeIcon icon={faArrowUp} style={{ color: '#7126B5' }} /><FontAwesomeIcon icon={faArrowDown} style={{ color: '#7126B5' }}/>{filterParameter}</button>
             </div>
 
-            <div className='modal fade' id='exampleModal' tabIndex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-              <div className='modal-dialog'>
-                <div className='modal-content'>
-                  <div className='modal-header'>
-                    <h5 className='modal-title' id='exampleModalLabel'>Modal title</h5>
-                    <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                  </div>
-                  <div className='modal-body'>
+            
+            <div className='modal-body'>
                     <div className='form-check' id='hover-popup' style={{ display: 'flex', justifyContent:'space-between', height: '48px', borderBottom: '1px solid #D0D0D0', alignItems: 'center', paddingRight:'15px'}}>
                       <label className='form-check-label' htmlFor='flexRadioDefault1'>
                         <b>Harga</b> - Termurah
@@ -96,34 +90,34 @@ const SearchFlight = (): ReactElement => {
                   <div className='modal-footer'>
                     <button type='submit' className='btn btn-primary' style={{backgroundColor: '#4B1979' }}>Pilih</button>
                   </div>
-                </div>
-              </div>
             </div>
 
-            <div className='filter-box' style={{ display: 'flex' }}>
-              <div className='accordion' style={{ width: '268px', padding: '20px', borderRadius: '16px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)' }} id='accordionPanelsStayOpenExample'>
-                <p style={{ fontWeight: 'bold' }}>Filter</p>
-                <div className='accordion-item'>
-                  <h2 className='accordion-header'>
-                    <button className='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseTwo' aria-expanded='false' aria-controls='panelsStayOpen-collapseTwo'>
-                      <FontAwesomeIcon icon={faHeart} style={{ color: '#8A8A8A', padding: '5px' }} />Fasilitas
-                    </button>
-                  </h2>
-                  <div id='panelsStayOpen-collapseTwo' className='accordion-collapse collapse'>
-                    <div className='accordion-body'>
-                      <strong>This is the second item`s accordion body.</strong>Cek2
+            <div className='d-flex'>
+              <div className='filter-box'>
+                <div className='accordion' style={{ width: '268px', padding: '20px', borderRadius: '16px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)'}} id='accordionPanelsStayOpenExample'>
+                  <p style={{ fontWeight: 'bold'}}>Filter</p>
+                  <div className='accordion-item'>
+                    <h2 className='accordion-header'>
+                      <button className='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseTwo' aria-expanded='false' aria-controls='panelsStayOpen-collapseTwo'>
+                        <FontAwesomeIcon icon={faHeart} style={{ color: '#8A8A8A', padding: '5px' }} />Fasilitas
+                      </button>
+                    </h2>
+                    <div id='panelsStayOpen-collapseTwo' className='accordion-collapse collapse'>
+                      <div className='accordion-body'>
+                        <strong>This is the second item`s accordion body.</strong>Cek2
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className='accordion-item'>
-                  <h2 className='accordion-header'>
-                    <button className='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseThree' aria-expanded='false' aria-controls='panelsStayOpen-collapseThree'>
-                      <FontAwesomeIcon icon={faDollarSign} style={{ color: '#8A8A8A', padding: '5px' }} />Harga
-                    </button>
-                  </h2>
-                  <div id='panelsStayOpen-collapseThree' className='accordion-collapse collapse'>
-                    <div className='accordion-body'>
-                      <strong>This is the third item`s accordion body.</strong>Cek3
+                  <div className='accordion-item'>
+                    <h2 className='accordion-header'>
+                      <button className='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapseThree' aria-expanded='false' aria-controls='panelsStayOpen-collapseThree'>
+                        <FontAwesomeIcon icon={faDollarSign} style={{ color: '#8A8A8A', padding: '5px' }} />Harga
+                      </button>
+                    </h2>
+                    <div id='panelsStayOpen-collapseThree' className='accordion-collapse collapse'>
+                      <div className='accordion-body'>
+                        <strong>This is the third item`s accordion body.</strong>Cek3
+                      </div>
                     </div>
                   </div>
                 </div>
