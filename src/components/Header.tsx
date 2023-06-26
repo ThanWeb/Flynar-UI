@@ -13,7 +13,7 @@ const Header = (): ReactElement => {
             <div className='flex items-center'>
               <Image src='/assets/logoFlynarbaru.png' width={98} height={53} alt='' className='object-contain mr-8' />
               <form className='flex items-center'>
-                <div className='bg-gray-300 rounded-lg'>  
+                <div className='bg-gray-200 rounded-lg'>  
                   <input
                     className='border-0 w-64 h-10 px-4 text-black bg-transparent outline-none'
                     type='text'

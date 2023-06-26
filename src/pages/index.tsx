@@ -50,13 +50,14 @@ const Home = (): ReactElement => {
     price: number
     departureDate: string
     arrivalDate: string
+    arrivalAirport: string
   }
-  const cityButtons: string[] = ['Jakarta', 'Surabaya', 'Denpasar', 'Makassar']
+  const cityButtons: string[] = ['Bandara Soekarno Hatta', 'Bandara Djuanda', 'Bandara Internasional Ngurah Rai']
   const [activeButton, setActiveButton] = useState<string | null>(null)
   const [filteredFlightData, setFilteredFlightData] = useState<Flight[]>([])
-  const handleClickButton = (city: string) => {
-    setActiveButton(city);
-    const filteredData = flightData.filter((flight: Flight) => flight.arrivalCity === city)
+  const handleClickButton = (airport: string) => {
+    setActiveButton(airport)
+    const filteredData = flightData.filter((flight: Flight) => flight.arrivalAirport === airport)
     setFilteredFlightData(filteredData);
   }
   
@@ -116,7 +117,7 @@ const Home = (): ReactElement => {
                   </div>
                 </div>
                 <div className=''>
-                  <div onClick={handleSwapCities} className='flex items-center justify-center bg-black rounded-md border-none h-8 w-8 m-5'>
+                  <div onClick={handleSwapCities} className='flex items-center justify-center cursor-pointer bg-black rounded-md border-none h-8 w-8 m-5'>
                     <FontAwesomeIcon icon={faRetweet} className='text-white p-1 text-lg' />
                   </div>
                 </div>
@@ -201,16 +202,16 @@ const Home = (): ReactElement => {
           <div className='mt-6'>
             <div className='container '>
             <p className='font-bold text-lg leading-6 mb-2'>Destinasi Favorit</p>
-              {cityButtons.map((city: string) => (
+              {cityButtons.map((airport: string) => (
                 <button
-                  key={city}
-                  onClick={() => handleClickButton(city)}
-                  className={`mr-3 mb-3 px-3 py-2 rounded-lg ${
-                    activeButton === city ? 'bg-purple-700 text-white' : 'bg-purple-40000 text-gray-600'
+                  key={airport}
+                  onClick={() => handleClickButton(airport)}
+                  className={`mr-3 mb-3 px-3 py-2 shadow rounded-lg ${
+                    activeButton === airport ? 'bg-purple-700 text-white' : 'bg-purple-40000 text-gray-600'
                   }`}
                 >
                   <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
-                  {city}
+                  {airport}
                 </button>
               ))}
             </div>
@@ -223,10 +224,10 @@ const Home = (): ReactElement => {
                   <div>
                     <img src='/assets/logoFlynarbaru.png' alt='' className='w-[150px] h-[100px]object-cover' />
                   </div>
-                  <p className='mb-1 mt-2 font-semibold text-xs'>{flight.departureCity} -{'>'} {flight.arrivalCity}</p>
-                  <p className='mb-2 font-bold text-xs text-purple-700'>{flight.airline}</p>
-                  <p className='mb-2 font-normal text-xs'>{flight.departureDate} - {flight.arrivalDate}</p>
-                  <p className='mt-2 font-normal text-xs'>Mulai dari <span className='font-bold text-red-500'>IDR {flight.price}</span></p>
+                  <p className='mt-1 font-semibold text-xs'>{flight.departureCity} -{'>'} {flight.arrivalCity}</p>
+                  <p className='font-bold text-xs text-purple-700'>{flight.airline}</p>
+                  <p className='mb-1 font-normal text-xs'>{flight.departureDate} - {flight.arrivalDate}</p>
+                  <p className='mt-1 font-bold text-xs text-center text-blue-700 bg-slate-200 p-1 rounded-md'>{flight.arrivalAirport}</p>
                 </div>
               ))}
             </div>
