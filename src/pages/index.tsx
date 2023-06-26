@@ -1,4 +1,4 @@
-import { useState, type ReactElement, useEffect } from 'react'
+import { useState, type ReactElement, useEffect, SetStateAction } from 'react'
 import DefaultLayout from '@/layouts/default'
 import axios from 'axios'
 import Image from 'next/image'
@@ -62,15 +62,28 @@ const Home = (): ReactElement => {
   
   const [departureCity, setDepartureCity] = useState<string>('');
   const [arrivalCity, setArrivalCity] = useState<string>('');
-
   const handleDepartureCityChange = (city: string) => {
-    setDepartureCity(city);
+    setDepartureCity(city)
   }
-
   const handleArrivalCityChange = (city: string) => {
-    setArrivalCity(city);
+    setArrivalCity(city)
   }
 
+  const handleSwapCities = () => {
+    const tempCity = departureCity
+    setDepartureCity(arrivalCity)
+    setArrivalCity(tempCity)
+  }
+
+  const [passengerCounts, setPassengerCounts] = useState([0, 0, 0])
+  const handlePassengerCountsChange = (counts: SetStateAction<number[]>) => {
+    setPassengerCounts(counts)
+  }
+
+  const [selectedClass, setSelectedClass] = useState<string>('')
+  const handleClassChange = (option: string) => {
+    setSelectedClass(option)
+  }
   return (
     <main>
       <div className='flex justify-center relative w-full'>
@@ -103,9 +116,9 @@ const Home = (): ReactElement => {
                   </div>
                 </div>
                 <div className=''>
-                  <button className='flex items-center justify-center bg-black rounded-md border-none h-8 w-8 m-5'>
+                  <div onClick={handleSwapCities} className='flex items-center justify-center bg-black rounded-md border-none h-8 w-8 m-5'>
                     <FontAwesomeIcon icon={faRetweet} className='text-white p-1 text-lg' />
-                  </button>
+                  </div>
                 </div>
                 <div className='flex items-center'>
                   <div className='flex items-center text-gray-400 mr-3 w-[65px]'>
@@ -165,13 +178,13 @@ const Home = (): ReactElement => {
                       <div className='w-[49%] border-b-2 border-gray-400'>
                         <p className='text-gray-400 font-normal text-base leading-6'>Passengers</p>
                         <div className='py-3'>
-                          <CustomSelectPassenger/>
+                          <CustomSelectPassenger value={passengerCounts} onChange={handlePassengerCountsChange}/>
                         </div>
                       </div>
                       <div className='w-[49%] border-b-2 border-gray-400'>
                         <p className='text-gray-400 font-normal text-base leading-6'>Seat Class</p>
                         <div className='py-3'>
-                          <CustomSelectClass/>
+                          <CustomSelectClass value={selectedClass} onChange={handleClassChange} />
                         </div>
                       </div>
                     </div>
@@ -210,10 +223,10 @@ const Home = (): ReactElement => {
                   <div>
                     <img src='/assets/logoFlynarbaru.png' alt='' className='w-[150px] h-[100px]object-cover' />
                   </div>
-                  <p className='mb-1 font-semibold text-xs'>{flight.departureCity} -{'>'} {flight.arrivalCity}</p>
-                  <p className='mb-3 font-bold text-xs text-purple-700'>{flight.airline}</p>
-                  <p className='mb-3 font-normal text-xs'>{flight.departureDate} - {flight.arrivalDate}</p>
-                  <p className='mt-3 font-normal text-xs'>Mulai dari <span className='font-bold text-red-500'>IDR {flight.price}</span></p>
+                  <p className='mb-1 mt-2 font-semibold text-xs'>{flight.departureCity} -{'>'} {flight.arrivalCity}</p>
+                  <p className='mb-2 font-bold text-xs text-purple-700'>{flight.airline}</p>
+                  <p className='mb-2 font-normal text-xs'>{flight.departureDate} - {flight.arrivalDate}</p>
+                  <p className='mt-2 font-normal text-xs'>Mulai dari <span className='font-bold text-red-500'>IDR {flight.price}</span></p>
                 </div>
               ))}
             </div>
