@@ -57,7 +57,7 @@ const CustomSelectPassenger: React.FC<CustomSelectPassengerProps> = ({ value, on
     <div className="wrapper">
       <div className={`select-btn cursor-pointer shadow-sm focus:outline-none relative ${isActive ? 'active' : ''}`} onClick={handleSelectLocationClick}>
         <span className="font-medium text-base leading-6 text-slate-700">
-          {isSaved ? `${totalPassengers} penumpang` : selectedOption || 'Jml Penumpang'}
+          {isSaved ? `${totalPassengers} penumpang` : selectedOption || 'Penumpang'}
         </span>
       </div>
       {isActive && (

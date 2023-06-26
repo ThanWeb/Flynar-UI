@@ -3,7 +3,7 @@ import DefaultLayout from '@/layouts/default'
 import axios from 'axios'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarDays, faCouch, faMagnifyingGlass, faPlaneDeparture, faRetweet } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarDays, faCouch, faPlane, faPlaneDeparture, faRetweet } from '@fortawesome/free-solid-svg-icons'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import CustomSelectSearch from '@/components/CustomSelectSearch'
@@ -88,36 +88,40 @@ const Home = (): ReactElement => {
   return (
     <main>
       <div className='flex justify-center relative w-full'>
-        <div className='w-4/5 absolute h-[232px] top-[32px] bg-no-repeat bg-right rounded-[20px]' style={{ backgroundImage: 'url("/Assets/bgRumahadat.png")' }}></div>
-        <div className='flex items-center w-4/5 absolute h-[232px] top-[32px] rounded-[20px] bg-gradient-to-r from-[#FFF0DC] via-[#FFF8ED] to-transparent'>
+        <div className='w-4/5 absolute h-[232px] top-[32px] bg-no-repeat bg-right rounded-[20px] hidden xl:block lg:block md:block sm:hidden' style={{ backgroundImage: 'url("/Assets/bgRumahadat.png")' }}></div>
+        <div className='hidden items-center w-4/5 absolute h-[232px] top-[32px] rounded-[20px] bg-gradient-to-r from-[#FFF0DC] via-[#FFF8ED] to-transparent xl:flex lg:flex md:flex sm:hidden'>
           <p className='ml-5 font-bold text-3xl leading-9'>
-            <i>Diskon Hari ini</i>
-            <br />
-            <span className='text-purple-700'>85%!</span>
+            <i>Welcome to </i>
+            <span className='text-purple-700'>Flynar</span>
           </p>
         </div>
-        <div className='h-[150px] w-full bg-gradient-to-r from-[#A06ECE] to-[#D0B7E6] mt-[64px]'></div>
+      <div className='flex items-center h-[150px] w-full bg-gradient-to-r from-[#A06ECE] to-[#D0B7E6] mt-0 xl:mt-[64px] lg:mt-[64px] md:mt-[64px]'>
+        <p className='block ml-5 font-bold text-xl leading-9 xl:hidden lg:hidden md:hidden sm:block sm:ml-[10%]'>
+          <i>Welcome to </i>
+          <span className='text-purple-800'>Flynar</span>
+        </p>
+      </div>
       </div>
       <div className='flex justify-center relative'>
-        <div className='absolute w-[70%] '>
+        <div className='-top-[55px] absolute w-[90%] xl:top-0 xl:w-[70%] lg:top-0 lg:w-[70%] md:top-0 md:w-[70%] sm:-top-[45px] sm:w-[70%]'>
           <form action=''>
             <div className='container bg-white p-5 shadow-md rounded-t-lg'>
-              <p className='font-bold text-2xl leading-9 mb-5'>
+              <p className='text-sm font-bold leading-9 mb-5 xl:text-2xl lg:text-2xl md:text-xl sm:text-lg'>
                 Pilih Jadwal Penerbangan Spesial di 
                 <span className='text-purple-700'> Flynar!</span>
               </p>
-              <div className='flex justify-between'>
+              <div className='flex flex-col relative xl:flex-row xl:justify-between lg:relative lg:flex-col lg:items-center md:relative md:flex-col md:items-center sm:relative sm:flex-col sm:items-center'>
                 <div className='flex items-center'>
                   <div className='flex items-center text-gray-400 mr-3 w-[65px]'>
                     <FontAwesomeIcon icon={faPlaneDeparture} className='mr-2 w-[20px]' />
                     <p className='font-normal text-sm leading-5'>From</p>
                   </div>
-                  <div className='border-b-2 border-gray-400 w-[300px] py-3'>
+                  <div className='w-5/6 border-b-2 border-gray-400 py-3 xl:z-10 xl:w-[300px] lg:w-[600px] md:w-[400px] sm:w-[300px]'>
                     <CustomSelectSearch selectedCity={departureCity} onSelectCity={handleDepartureCityChange} placeholder={'Pilih Lokasi'}/>
                   </div>
                 </div>
-                <div className=''>
-                  <div onClick={handleSwapCities} className='flex items-center justify-center cursor-pointer bg-black rounded-md border-none h-8 w-8 m-5'>
+                <div className='w-full flex justify-end absolute top-1/2 transform -translate-y-1/2 xl:w-full xl:justify-center lg:absolute lg:top-1/2 lg:transform lg:-translate-y-1/2 lg:w-[700px] lg:flex lg:justify-end md:absolute md:top-1/2 md:transform md:-translate-y-1/2 md:w-[500px] md:flex md:justify-end sm:absolute sm:top-1/2 sm:transform sm:-translate-y-1/2 sm:w-[400px] sm:flex sm:justify-end'>
+                  <div onClick={handleSwapCities} className='flex items-center justify-center cursor-pointer bg-black rounded-md border-none h-8 w-8'>
                     <FontAwesomeIcon icon={faRetweet} className='text-white p-1 text-lg' />
                   </div>
                 </div>
@@ -126,19 +130,19 @@ const Home = (): ReactElement => {
                     <FontAwesomeIcon icon={faPlaneDeparture} className='mr-2 w-[20px]' />
                     <p className='font-normal text-sm leading-5'>To</p>
                   </div>
-                  <div className='border-b-2 border-gray-400 w-[300px] py-3'>
+                  <div className='w-5/6 border-b-2 border-gray-400 py-3 xl:z-10 xl:w-[300px] lg:w-[600px] md:w-[400px] sm:w-[300px]'>
                     <CustomSelectSearch selectedCity={arrivalCity} onSelectCity={handleArrivalCityChange} placeholder='Pilih Lokasi'/>
                   </div>
                 </div>
               </div>
-              <div className='flex justify-between mt-4'>
+              <div className='flex flex-col mt-4 xl:justify-between xl:flex-row lg:items-center lg:flex-col md:items-center md:flex-col sm:items-center sm:flex-col'>
                 <div className='flex items-center'>
                   <div className='flex items-center text-gray-400 mr-3 w-[65px]'>
                     <FontAwesomeIcon icon={faCalendarDays} className='me-2 text-lg w-[20px]'/>
                     <p className='font-normal text-sm leading-5'>Date</p>
                   </div>
-                  <div className='flex justify-between w-[300px]'>
-                    <div className='w-[49%] border-b-2 border-gray-400'>
+                  <div className='flex flex-col w-5/6 xl:w-[300px] xl:justify-between xl:flex-row lg:w-[600px] lg:justify-between lg:flex-row md:w-[400px] md:justify-between md:flex-row sm:w-[300px] sm:items-center sm:flex-col'>
+                    <div className='mb-2 border-b-2 border-gray-400 xl:w-[49%] lg:w-[49%] md:w-[49%] sm:w-[100%]'>
                       <p className='text-gray-400 font-normal text-base leading-6'>Departure</p>
                       <DatePicker
                         className='border-0 bg-transparent focus:outline-none cursor-pointer w-[80%] py-3'
@@ -146,7 +150,7 @@ const Home = (): ReactElement => {
                         onChange={(date) => setDepartureDate(date)}
                       />
                     </div>
-                    <div className='w-[49%] border-b-2 border-gray-400'>
+                    <div className='mb-2 border-b-2 border-gray-400 xl:w-[49%] lg:w-[49%] md:w-[49%] sm:w-[100%]'>
                       <div className='flex items-center justify-between'>
                         <p className='text-gray-400 font-normal text-base leading-6'>Return</p>
                         <div
@@ -175,14 +179,14 @@ const Home = (): ReactElement => {
                       <FontAwesomeIcon icon={faCouch} className='me-2' style={{ fontSize: '20px', width: '20px' }} />
                       <p className='font-normal text-base leading-6'>To</p>
                     </div>
-                    <div className='flex justify-between w-[300px]' style={{ width: '300px' }}>
-                      <div className='w-[49%] border-b-2 border-gray-400'>
+                    <div className='flex flex-col w-5/6 xl:w-[300px] xl:justify-between xl:flex-row lg:w-[600px] lg:justify-between lg:flex-row md:w-[400px] md:justify-between md:flex-row sm:w-[300px] sm:items-center sm:flex-col'>
+                      <div className='mb-2 border-b-2 border-gray-400 xl:w-[49%] lg:w-[49%] md:w-[49%] sm:w-[100%]'>
                         <p className='text-gray-400 font-normal text-base leading-6'>Passengers</p>
                         <div className='py-3'>
                           <CustomSelectPassenger value={passengerCounts} onChange={handlePassengerCountsChange}/>
                         </div>
                       </div>
-                      <div className='w-[49%] border-b-2 border-gray-400'>
+                      <div className='mb-2 border-b-2 border-gray-400 xl:w-[49%] lg:w-[49%] md:w-[49%] sm:w-[100%]'>
                         <p className='text-gray-400 font-normal text-base leading-6'>Seat Class</p>
                         <div className='py-3'>
                           <CustomSelectClass value={selectedClass} onChange={handleClassChange} />
@@ -210,7 +214,7 @@ const Home = (): ReactElement => {
                     activeButton === airport ? 'bg-purple-700 text-white' : 'bg-purple-40000 text-gray-600'
                   }`}
                 >
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className='me-2'/>
+                  <FontAwesomeIcon icon={faPlane} className='me-2'/>
                   {airport}
                 </button>
               ))}
@@ -222,7 +226,7 @@ const Home = (): ReactElement => {
                   className='p-2 mt-3 mr-7 mb-4 w-[170px] h-48 shadow-md'
                 >
                   <div>
-                    <img src='/assets/logoFlynarbaru.png' alt='' className='w-[150px] h-[100px]object-cover' />
+                    <img src='/assets/logoFlynarbaruCrop.png' alt='' className='w-[150px] h-[100px]object-cover' />
                   </div>
                   <p className='mt-1 font-semibold text-xs'>{flight.departureCity} -{'>'} {flight.arrivalCity}</p>
                   <p className='font-bold text-xs text-purple-700'>{flight.airline}</p>
