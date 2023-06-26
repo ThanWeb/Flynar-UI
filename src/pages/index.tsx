@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarDays, faCouch, faMagnifyingGlass, faPlaneDeparture, faRetweet } from '@fortawesome/free-solid-svg-icons'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import CustomSelect from '@/components/CustomSelect'
+import CustomSelectSearch from '@/components/CustomSelectSearch'
 import CustomSelectClass from '@/components/CustomSelectClass'
 import CustomSelectPassenger from '@/components/CustomSelectPassenger'
 
@@ -60,6 +60,17 @@ const Home = (): ReactElement => {
     setFilteredFlightData(filteredData);
   }
   
+  const [departureCity, setDepartureCity] = useState<string>('');
+  const [arrivalCity, setArrivalCity] = useState<string>('');
+
+  const handleDepartureCityChange = (city: string) => {
+    setDepartureCity(city);
+  }
+
+  const handleArrivalCityChange = (city: string) => {
+    setArrivalCity(city);
+  }
+
   return (
     <main>
       <div className='flex justify-center relative w-full'>
@@ -88,7 +99,7 @@ const Home = (): ReactElement => {
                     <p className='font-normal text-sm leading-5'>From</p>
                   </div>
                   <div className='border-b-2 border-gray-400 w-[300px] py-3'>
-                    <CustomSelect/>
+                    <CustomSelectSearch selectedCity={departureCity} onSelectCity={handleDepartureCityChange} placeholder={'Pilih Lokasi'}/>
                   </div>
                 </div>
                 <div className=''>
@@ -102,7 +113,7 @@ const Home = (): ReactElement => {
                     <p className='font-normal text-sm leading-5'>To</p>
                   </div>
                   <div className='border-b-2 border-gray-400 w-[300px] py-3'>
-                    <CustomSelect/>
+                    <CustomSelectSearch selectedCity={arrivalCity} onSelectCity={handleArrivalCityChange} placeholder='Pilih Lokasi'/>
                   </div>
                 </div>
               </div>
