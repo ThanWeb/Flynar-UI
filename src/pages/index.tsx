@@ -147,7 +147,7 @@ const Home = (): ReactElement => {
                       <DatePicker
                         className='border-0 bg-transparent focus:outline-none cursor-pointer w-[80%] py-3'
                         selected={departureDate}
-                        onChange={(date) => setDepartureDate(date)}
+                        onChange={(date:Date) => setDepartureDate(date)}
                       />
                     </div>
                     <div className='mb-2 border-b-2 border-gray-400 xl:w-[49%] lg:w-[49%] md:w-[49%] sm:w-[100%]'>
@@ -167,7 +167,7 @@ const Home = (): ReactElement => {
                       <DatePicker
                         className='border-0 bg-transparent focus:outline-none cursor-pointer w-[80%] py-3'
                         selected={returnDate}
-                        onChange={(date) => setReturnDate(date)}
+                        onChange={(date:Date) => setReturnDate(date)}
                         disabled={isClicked}
                       />
                     </div>
