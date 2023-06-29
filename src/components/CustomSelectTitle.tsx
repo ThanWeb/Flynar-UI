@@ -29,11 +29,11 @@ const CustomSelectTitle: React.FC<{ value: string; onChange: (option: string) =>
         <span className='font-medium text-sm leading-6 text-slate-700'>{value || 'Title'}</span>
       </div>
       {isActive && (
-        <div className='content w-[300px] absolute z-50 bg-white rounded-md shadow-md p-2'>
+        <div className='content w-[58%] sm:w-[59%] md:w-[51%] lg:w-[31%] absolute z-50 bg-white rounded-md shadow-md p-2'>
           <div className='flex justify-end items-center border-b-2'>
             <FontAwesomeIcon
               icon={faXmark}
-              className='mr-3 py-2 cursor-pointer text-red-600'
+              className='mr-3 py-2 cursor-pointer te-xt-red-600'
               onClick={handleCloseClick}
             />
           </div>
