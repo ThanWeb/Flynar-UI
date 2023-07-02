@@ -61,16 +61,16 @@ const History = (): ReactElement => {
 									</div>
 								</div>
 								<div className='p-2 flex flex-col md:flex-row md:justify-between'>
-									<div>
-										<p className='font-extrabold text-xs mr-2 md:mr-0 md:text-sm'>Booking Code :</p>
+									<div className='flex flex-col sm:flex-row md:flex-col mb-0 md:mb-2'>
+										<p className='font-extrabold mb-0 md:mb-1 text-xs mr-2 md:mr-0 md:text-sm'>Booking Code :</p>
 										<p className='font-semibold text-xs mr-2 md:mr-0'>6723y2GHK</p>
 									</div>
-									<div>
+									<div className='flex flex-col sm:flex-row md:flex-col mb-0 md:mb-2'>
 										<p className='font-extrabold text-xs mr-2 md:mr-0 md:text-sm'>Class :</p>
 										<p className='font-semibold text-xs mr-2 md:mr-0'>Economy</p>
 									</div>
-									<div>
-										<p className='text-base md:text-lg font-bold text-purple-800'>IDR 9.850.000</p>
+									<div className='flex flex-col sm:flex-row md:flex-col mb-0 md:mb-2'>
+										<p className='text-sm sm:text-base md:text-lg font-bold text-purple-800'>IDR 9.850.000</p>
 									</div>
 								</div>
 							</div>
