@@ -19,6 +19,7 @@ const Payment = (): ReactElement => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [dataCheckout, setDataCheckout] = useState()
   const router = useRouter()
 
   const handleClick = (): void => {
@@ -55,7 +56,7 @@ const Payment = (): ReactElement => {
       setIsLoading(true)
       setErrorMessage('')
       const response = await axios.get(
-        'http://localhost:8000/api/v1/checkouts?date=7&month=7&year=2023',
+        'http://localhost:8000/api/v1/checkouts',
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -63,6 +64,7 @@ const Payment = (): ReactElement => {
           withCredentials: true
         }
       )
+      setDataCheckout(response.data.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (
@@ -85,6 +87,46 @@ const Payment = (): ReactElement => {
       }
     }
   }
+
+  const payment = async (): Promise<void> => {
+    const accessToken = sessionStorage.getItem('accessToken')
+    setIsLoading(true)
+    setErrorMessage('')
+    setSuccessMessage('')
+    try {
+      const response = await axios.put(
+        'http://localhost:8000/api/v1/checkout/pay',
+
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        }
+      )
+      setSuccessMessage('Pembayaran Berhasil')
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (
+          error.response?.data?.message !== undefined &&
+          error.response?.data?.message !== null
+        ) {
+          if (error.response.data.message === 'Pembayaran Gagal') {
+            setErrorMessage(error.response.data.message)
+          } else {
+            setErrorMessage(error.response.data.message)
+          }
+        } else {
+          console.error(error)
+        }
+      } else {
+        console.error(error)
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <>
       {/* Header pas tampilan web */}
@@ -269,7 +311,12 @@ const Payment = (): ReactElement => {
                     alt="paypal"
                   />
                 </div>
-                <button className="bg-[#7126B5] text-sm py-2 mt-7 text-white w-[340px] rounded-xl">
+                <button
+                  className="bg-[#7126B5] text-sm py-2 mt-7 text-white w-[340px] rounded-xl"
+                  onClick={() => {
+                    void payment()
+                  }}
+                >
                   Bayar
                 </button>
               </div>
