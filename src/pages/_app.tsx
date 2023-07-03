@@ -5,7 +5,6 @@ import type { Page } from '../types/page'
 import '@/styles/globals.css'
 import 'flowbite'
 
-
 type Props = AppProps & {
   Component: Page
 }

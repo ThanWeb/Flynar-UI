@@ -2,10 +2,14 @@
 const colors = require('tailwindcss/colors');
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/layouts/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+    // eslint-disable-next-line quotes
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    // eslint-disable-next-line quotes
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    // eslint-disable-next-line quotes, comma-dangle
+    "./src/layouts/**/*.{js,ts,jsx,tsx,mdx}",
+    // eslint-disable-next-line quotes, comma-dangle
+    "./node_modules/flowbite/**/*.js",
   ],
   plugins: [require('flowbite/plugin')],
   theme: {

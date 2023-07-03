@@ -2,11 +2,11 @@ import { useState, useEffect, type ReactElement } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 import axios from 'axios'
 import AuthPageLayout from '@/layouts/auth'
 import { useRouter } from 'next/router'
+import { deleteCookie, setCookie } from 'cookies-next'
 
 const Login = (): ReactElement => {
   const router = useRouter()
@@ -43,6 +43,7 @@ const Login = (): ReactElement => {
       setIsLoading(true)
       setErrorMessage('')
       const response = await axios.post('http://localhost:8000/api/v1/login', { identifier: email, password })
+      deleteCookie('loggedEmail')
       sessionStorage.setItem('accessToken', response.data.accessToken)
       if (response.status === 200) {
         await router.push('/')
@@ -50,11 +51,19 @@ const Login = (): ReactElement => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data?.message !== undefined && error.response?.data?.message !== null) {
-          setErrorMessage(error.response.data.message)
+          if (error.response.data.message === 'Silahkan Verifikasi Akun Ini') {
+            setCookie('loggedEmail', email)
+            setErrorMessage(error.response.data.message)
+            setTimeout(() => {
+              void router.push('/verify-otp')
+            }, 2000)
+          } else {
+            setErrorMessage(error.response.data.message)
+          }
         } else {
-          setErrorMessage('Terjadi kesalahan pada proses loginS')
+          setErrorMessage('Terjadi Kesalahan, Coba Lagi')
+          console.error(error)
         }
-        console.error(error)
       } else {
         console.error(error)
       }
@@ -68,14 +77,13 @@ const Login = (): ReactElement => {
       <Head>
         <title>Sign In</title>
         <meta name='description' content='Sign in to flynar website' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
       <div id='login-page' className='flex h-screen overflow-hidden'>
-        <div className='hidden lg:w-1/2 lg:relative lg:flex lg:px-8'>
+        <div className='hidden lg:w-1/2 relative lg:flex lg:px-8'>
           <Image src='/images/auth-background.png' fill={true} sizes='100%' priority={true} alt='Auth Page Background' className='object-cover'/>
           <Image src='/images/flynar-logo.png' width={200} height={200} loading='lazy' alt='Flynar Logo' className='absolute bottom-0'/>
         </div>
-        <div className='w-full h-full flex px-6 py-4 lg:p-0 lg:w-1/2'>
+        <div className='w-full h-full flex px-6 py-4 lg:p-0 lg:w-1/2 auth-bg-2'>
           <div className='m-auto w-full md:w-3/6 lg:w-4/6'>
             <form onSubmit={(e) => { void handleSubmit(e) } } action=''>
               <h5 className='font-bold text-2xl leading-9 mb-6'>Masuk</h5>
@@ -91,11 +99,11 @@ const Login = (): ReactElement => {
                   </div>
                   <div className='flex justify-between relative'>
                     <input value={password} onChange={(e) => { setPassword(e.target.value) }} type={showPassword ? 'text' : 'password'} placeholder='Masukkan password' id='password' className={`${password.length > 0 && password.length < 8 && 'wrong-input'} rounded-2xl h-full w-full pl-4 py-3 border`}/>
-                    <button type='button' className='py-3 pr-4 absolute right-0' onClick={togglePasswordVisibility}>
+                    <button type='button' className='py-3 px-4 rounded-2xl absolute right-0 h-full toggle-password' title='toggle-password' onClick={togglePasswordVisibility}>
                       {showPassword
-                        ? (<FontAwesomeIcon icon={faEye} />)
-                        : (<FontAwesomeIcon icon={faEyeSlash} />
-                        )}
+                        ? (<FiEye/>)
+                        : ((<FiEyeOff/>))
+                      }
                     </button>
                   </div>
                 </div>

@@ -3,12 +3,12 @@ import type { ReactElement, FormEvent } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router'
 import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 import AuthPageLayout from '@/layouts/auth'
 import isEmailValid from '@/utils/isEmailValid'
+import { setCookie } from 'cookies-next'
 
 const Register = (): ReactElement => {
   const [showPassword, setShowPassword] = useState(false)
@@ -24,6 +24,7 @@ const Register = (): ReactElement => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
     if (errorMessage !== '') {
@@ -59,18 +60,19 @@ const Register = (): ReactElement => {
         password,
         phoneNumber
       })
+      setCookie('loggedEmail', email)
       setSuccessMessage('Registrasi berhasil')
       setTimeout(() => {
-        redirect('/verify-otp')
-      }, 1000)
+        void router.push('/verify-otp')
+      }, 2000)
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data?.message !== undefined && error.response?.data?.message !== null) {
           setErrorMessage(error.response.data.message)
         } else {
-          setErrorMessage('Terjadi kesalahan pada proses registrasi')
+          setErrorMessage('Terjadi Kesalahan, Coba Lagi')
+          console.error(error)
         }
-        console.error(error)
       } else {
         console.error(error)
       }
@@ -84,15 +86,14 @@ const Register = (): ReactElement => {
       <Head>
         <title>Sign Up</title>
         <meta name='description' content='Sign up to flynar website' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
       <div id='register-page'>
         <div className='flex h-screen overflow-hidden'>
-          <div className='hidden lg:w-1/2 lg:relative lg:flex lg:px-8'>
+          <div className='hidden lg:w-1/2 relative lg:flex lg:px-8'>
             <Image src='/images/auth-background.png' fill={true} sizes='100%' priority={true} alt='Auth Page Background' className='object-cover'/>
             <Image src='/images/flynar-logo.png' width={200} height={200} loading='lazy' alt='Flynar Logo' className='absolute bottom-0'/>
           </div>
-          <div className='w-full h-full flex px-6 py-4 lg:p-0 lg:w-1/2'>
+          <div className='w-full h-full flex px-6 py-4 lg:p-0 lg:w-1/2 auth-bg-2'>
             <div className='m-auto w-full md:w-3/6 lg:w-4/6'>
               <form action='' autoComplete='off' onSubmit={(e) => { void handleSubmit(e) } }>
                 <h5 className='text-2xl leading-9 mb-6 font-bold'>Daftar</h5>
@@ -113,11 +114,11 @@ const Register = (): ReactElement => {
                     <label htmlFor='password'>Password</label>
                     <div className='flex justify-between relative'>
                       <input type={showPassword ? 'text' : 'password'} value={password} placeholder='Buat password' id='password' className={`${password.length > 0 && password.length < 8 && 'wrong-input'} rounded-2xl h-full w-full pl-4 py-3 border`} onChange={(e) => { setPassword(e.target.value) }}/>
-                      <button type='button' className='py-3 pr-4 absolute right-0' onClick={togglePasswordVisibility}>
+                      <button type='button' className='py-3 px-4 rounded-2xl absolute right-0 h-full toggle-password' title='toggle-password' onClick={togglePasswordVisibility}>
                         {showPassword
-                          ? (<FontAwesomeIcon icon={faEye} />)
-                          : (<FontAwesomeIcon icon={faEyeSlash} />
-                          )}
+                          ? (<FiEye/>)
+                          : ((<FiEyeOff/>))
+                        }
                       </button>
                     </div>
                   </div>
