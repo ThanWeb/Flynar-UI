@@ -9,9 +9,12 @@ import 'react-datepicker/dist/react-datepicker.css'
 import CustomSelectSearch from '@/components/CustomSelectSearch'
 import CustomSelectClass from '@/components/CustomSelectClass'
 import CustomSelectPassenger from '@/components/CustomSelectPassenger'
-
+import Link from 'next/Link'
+import { useRouter } from 'next/router';
 
 const Home = (): ReactElement => {
+  const router = useRouter()
+
   const [departureDate, setDepartureDate] = useState(new Date())
   const [returnDate, setReturnDate] = useState(new Date())
 
@@ -60,7 +63,6 @@ const Home = (): ReactElement => {
     const filteredData = flightData.filter((flight: Flight) => flight.arrivalAirport === airport)
     setFilteredFlightData(filteredData);
   }
-  
   const [departureCity, setDepartureCity] = useState<string>('');
   const [arrivalCity, setArrivalCity] = useState<string>('');
   const handleDepartureCityChange = (city: string) => {
@@ -77,14 +79,26 @@ const Home = (): ReactElement => {
   }
 
   const [passengerCounts, setPassengerCounts] = useState([0, 0, 0])
+  const [passengerTotal, setPassengerTotal] = useState(0);
   const handlePassengerCountsChange = (counts: SetStateAction<number[]>) => {
     setPassengerCounts(counts)
+    const total = counts.reduce((sum, count) => sum + count, 0);
+    setPassengerTotal(total); // Update passengerTotal state
   }
+
+  let passengerSum = 0;
+  for (const count of Object.values(passengerCounts)) {
+    passengerSum += count;
+  }
+  
+  console.log(passengerSum);
+
 
   const [selectedClass, setSelectedClass] = useState<string>('')
   const handleClassChange = (option: string) => {
     setSelectedClass(option)
   }
+
   return (
     <main>
       <div className='flex justify-center relative w-full'>
@@ -95,12 +109,12 @@ const Home = (): ReactElement => {
             <span className='text-purple-700'>Flynar</span>
           </p>
         </div>
-      <div className='flex items-center h-[150px] w-full bg-gradient-to-r from-[#A06ECE] to-[#D0B7E6] mt-0 xl:mt-[64px] lg:mt-[64px] md:mt-[64px]'>
-        <p className='block ml-5 font-bold text-xl leading-9 xl:hidden lg:hidden md:hidden sm:block sm:ml-[10%]'>
-          <i>Welcome to </i>
-          <span className='text-purple-800'>Flynar</span>
-        </p>
-      </div>
+        <div className='flex items-center h-[150px] w-full bg-gradient-to-r from-[#A06ECE] to-[#D0B7E6] mt-0 xl:mt-[64px] lg:mt-[64px] md:mt-[64px]'>
+          <p className='block ml-5 font-bold text-xl leading-9 xl:hidden lg:hidden md:hidden sm:block sm:ml-[10%]'>
+            <i>Welcome to </i>
+            <span className='text-purple-800'>Flynar</span>
+          </p>
+        </div>
       </div>
       <div className='flex justify-center relative'>
         <div className='-top-[55px] absolute w-[90%] xl:top-0 xl:w-[70%] lg:top-0 lg:w-[70%] md:top-0 md:w-[70%] sm:-top-[45px] sm:w-[70%]'>
@@ -198,14 +212,14 @@ const Home = (): ReactElement => {
               </div>
             </div>
             <div>
-              <button className='w-full px-4 py-2 text-white font-bold text-base leading-6 bg-purple-700 rounded-b-lg' type='submit'>
+              <Link href={`/searchFlight?departureCity=${departureCity}&arrivalCity=${arrivalCity}&passengerSum=${passengerSum}&selectedClass=${selectedClass}`}><button className='w-full px-4 py-2 text-white font-bold text-base leading-6 bg-purple-700 rounded-b-lg' type='submit'>
                 Cari Penerbangan
-              </button>
+              </button></Link>
             </div>
           </form>
           <div className='mt-6'>
             <div className='container '>
-            <p className='font-bold text-lg leading-6 mb-2'>Destinasi Favorit</p>
+              <p className='font-bold text-lg leading-6 mb-2'>Destinasi Favorit</p>
               {cityButtons.map((airport: string) => (
                 <button
                   key={airport}
