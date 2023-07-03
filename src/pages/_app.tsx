@@ -3,6 +3,7 @@ import type { ReactElement } from 'react'
 import { Fragment } from 'react'
 import type { Page } from '../types/page'
 import '@/styles/globals.css'
+import 'flowbite'
 
 type Props = AppProps & {
   Component: Page
