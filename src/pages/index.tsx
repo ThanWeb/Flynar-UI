@@ -114,7 +114,9 @@ const Home = (): ReactElement => {
     if (date === '') {
       return ''
     }
-    return `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    const month = date.getMonth() + 1
+    return `${date.getFullYear()}-${month < 10 ? `0${month}` : month}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`
   }
 
   const searchFlight = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -199,7 +201,7 @@ const Home = (): ReactElement => {
                   </div>
                   <div>
                     <label htmlFor='classSeat'>Seat Class</label>
-                    <select name='classSeat' id='classSeat'>
+                    <select name='classSeat' id='classSeat' value={classSeat} onChange={e => { setClassSeat(e.target.value) }}>
                       <option value='Economy'>Economy</option>
                       <option value='Premium Economy'>Premium Economy</option>
                       <option value='Business'>Business</option>
@@ -240,14 +242,6 @@ const Home = (): ReactElement => {
         </main>
       </div>
     </>
-  )
-}
-
-Home.getLayout = function getLayout (page: ReactElement) {
-  return (
-    <DefaultLayout>
-      {page}
-    </DefaultLayout>
   )
 }
 
