@@ -107,13 +107,32 @@ const Home = (): ReactElement => {
     if (date === '') {
       return ''
     }
-    return `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth()}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`
   }
 
   const searchFlight = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     const total = adult + child + baby
     void router.push(`/search?departureCity=${departureCity}&arrivalCity=${arrivalCity}&classSeat=${classSeat}&total=${total}&departureDate=${formatDate(departureDate)}&arrivalDate=${formatDate(arrivalDate)}&isRoundTrip=${isRoundTrip}`)
+  }
+
+  const handleSwapCities = (): void => {
+    const tempCity = departureCity
+    setDepartureCity(arrivalCity)
+    setArrivalCity(tempCity)
+  }
+
+  const togglePassenger = (): void => {
+    setShowPassenger(!showPassenger)
+  }
+  const handleClosePassenger = (): void => {
+    setShowPassenger(false)
+  }
+  const handleSave = (): void => {
+    const total = adult + child + baby
+    setTotalPassenger(total)
+    togglePassenger()
   }
 
   return (

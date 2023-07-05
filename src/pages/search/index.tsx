@@ -13,6 +13,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { FiArrowLeft } from 'react-icons/fi'
 import TicketItem from '@/components/TicketItem'
+import checkLoggedIn from '@/utils/checkLoggedIn'
 
 const Search = (): ReactElement => {
   const router = useRouter()
@@ -44,7 +45,8 @@ const Search = (): ReactElement => {
   const [ticketIds, setTicketIds] = useState('')
 
   useEffect(() => {
-    void checkLoggedIn()
+    const status = checkLoggedIn()
+    setIsLoggedIn(status)
     void fetchTickets()
   }, [])
 
@@ -63,25 +65,11 @@ const Search = (): ReactElement => {
     }
   }, [ticketIds])
 
-  const checkLoggedIn = async (): Promise<void> => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/v1/token', {
-        withCredentials: true
-      })
-      sessionStorage.setItem('accessToken', response.data.accessToken)
-      setIsLoggedIn(true)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   const fetchTickets = async (): Promise<void> => {
     try {
       // if (departureDate === '' && departureCity === '' && arrivalCity === '' && arrivalDate === '' && total === 0 && classSeat === '') {
       console.log(departureDate, departureCity, arrivalCity, arrivalDate, total, classSeat)
-      const response = await axios.get(`http://localhost:8000/api/v1/search?departureCity=${departureCity}&arrivalCity=${arrivalCity}&classSeat=${classSeat}&total=${total.toString()}&departureDate=${departureDate}&arrivalDate=${arrivalDate}`, {
-        withCredentials: true
-      })
+      const response = await axios.get(`http://localhost:8000/api/v1/search?departureCity=${departureCity}&arrivalCity=${arrivalCity}&classSeat=${classSeat}&total=${total.toString()}&departureDate=${departureDate}&arrivalDate=${arrivalDate}`)
       setTickets(response.data.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -96,9 +84,7 @@ const Search = (): ReactElement => {
 
   const login = async (): Promise<void> => {
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/login', { identifier: '', password: '' }, {
-        withCredentials: true
-      })
+      const response = await axios.post(`${process.env.REST_API_ENDPOINT}login`, { identifier: '', password: '' })
       sessionStorage.setItem('accessToken', response.data.accessToken)
       setIsLoggedIn(true)
     } catch (error) {
