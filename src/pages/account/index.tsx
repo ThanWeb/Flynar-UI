@@ -6,27 +6,14 @@ import Head from 'next/head'
 import axios from 'axios'
 import Header from '@/components/Header'
 import { useRouter } from 'next/router'
+import checkLoggedIn from '@/utils/checkLoggedIn'
 
 const Account = (): ReactElement => {
   useEffect(() => {
     void fetchUser()
+    const status = checkLoggedIn()
+    setIsLoggedIn(status)
   }, [])
-
-  useEffect(() => {
-    void checkLoggedIn()
-  }, [])
-
-  const checkLoggedIn = async (): Promise<void> => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/v1/token', {
-        withCredentials: true
-      })
-      sessionStorage.setItem('accessToken', response.data.accessToken)
-      setIsLoggedIn(true)
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const router = useRouter()
@@ -51,11 +38,10 @@ const Account = (): ReactElement => {
     try {
       setIsLoading(true)
       setErrorMessage('')
-      const response = await axios.get('http://localhost:8000/api/v1/profile', {
+      const response = await axios.get(`${process.env.REST_API_ENDPOINT}profile`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
-        },
-        withCredentials: true
+        }
       })
       setName(response.data.data.name)
       setPhoneNumber(response.data.data.phoneNumber)
@@ -89,11 +75,10 @@ const Account = (): ReactElement => {
     setErrorMessage('')
     setSuccessMessage('')
     try {
-      const response = await axios.put('http://localhost:8000/api/v1/profile/update', { name, phoneNumber }, {
+      const response = await axios.put(`${process.env.REST_API_ENDPOINT}profile/update`, { name, phoneNumber }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
-        },
-        withCredentials: true
+        }
       })
       setSuccessMessage('Profil Berhasil Diubah')
     } catch (error) {
@@ -119,9 +104,7 @@ const Account = (): ReactElement => {
   }
 
   const logout = async (): Promise<void> => {
-    const response = await axios.delete('http://localhost:8000/api/v1/logout', {
-      withCredentials: true
-    })
+    sessionStorage.removeItem('accessToken')
     setSuccessMessage('Terima Kasih')
     setTimeout(() => {
       void router.push('/login')

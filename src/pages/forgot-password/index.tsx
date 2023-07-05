@@ -32,7 +32,7 @@ const ForgotPassword = (): ReactElement => {
     try {
       setIsLoading(true)
       setErrorMessage('')
-      const response = await axios.put('http://localhost:8000/api/v1/forgot-password', { email })
+      const response = await axios.put(`${process.env.REST_API_ENDPOINT}forgot-password`, { email })
       setSuccessMessage(response.data.message)
       setTimeout(() => {
         void router.push('/reset-password')

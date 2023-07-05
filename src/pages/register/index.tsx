@@ -54,7 +54,7 @@ const Register = (): ReactElement => {
       setIsLoading(true)
       setErrorMessage('')
       setSuccessMessage('')
-      const response = await axios.post('http://localhost:8000/api/v1/register', {
+      const response = await axios.post(`${process.env.REST_API_ENDPOINT}register`, {
         name,
         email,
         password,

@@ -7,6 +7,7 @@ import Head from 'next/head'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import NotificationItem from '../../components/NotificationItem'
+import checkLoggedIn from '@/utils/checkLoggedIn'
 
 const Notification = (): ReactElement => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -15,32 +16,17 @@ const Notification = (): ReactElement => {
 
   useEffect(() => {
     void fetchNotifiaction()
+    const status = checkLoggedIn()
+    setIsLoggedIn(status)
   }, [])
-
-  useEffect(() => {
-    void checkLoggedIn()
-  }, [])
-
-  const checkLoggedIn = async (): Promise<void> => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/v1/token', {
-        withCredentials: true
-      })
-      sessionStorage.setItem('accessToken', response.data.accessToken)
-      setIsLoggedIn(true)
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   const fetchNotifiaction = async (): Promise<void> => {
     const accessToken = sessionStorage.getItem('accessToken')
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/notification', {
+      const response = await axios.get(`${process.env.REST_API_ENDPOINT}notification`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
-        },
-        withCredentials: true
+        }
       })
       setNotifications(response.data.data)
     } catch (error) {
@@ -65,11 +51,10 @@ const Notification = (): ReactElement => {
   const readNotification = async (id: number): Promise<void> => {
     const accessToken = sessionStorage.getItem('accessToken')
     try {
-      const response = await axios.put('http://localhost:8000/api/v1/notification', { id }, {
+      const response = await axios.put(`${process.env.REST_API_ENDPOINT}notification`, { id }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
-        },
-        withCredentials: true
+        }
       })
       await fetchNotifiaction()
     } catch (error) {

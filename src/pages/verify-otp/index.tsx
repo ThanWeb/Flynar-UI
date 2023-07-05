@@ -57,7 +57,7 @@ const VerifyOtp = (): ReactElement => {
       if (loggedEmail !== '') {
         setErrorMessage('')
         setSuccessMessage('')
-        const response = await axios.post('http://localhost:8000/api/v1/resend-otp', { email: loggedEmail })
+        const response = await axios.post(`${process.env.REST_API_ENDPOINT}resend-otp`, { email: loggedEmail })
         setSuccessMessage(response.data.message)
         const interval = setInterval(() => {
           secondTimer = document?.querySelector('.second-timer')
@@ -100,7 +100,7 @@ const VerifyOtp = (): ReactElement => {
     try {
       setIsLoading(true)
       setErrorMessage('')
-      const response = await axios.post('http://localhost:8000/api/v1/verify', { email: loggedEmail, otp: parseInt(otp) })
+      const response = await axios.post(`${process.env.REST_API_ENDPOINT}verify`, { email: loggedEmail, otp: parseInt(otp) })
       setSuccessMessage(response.data.message)
       setTimeout(() => {
         void router.push('/login')
