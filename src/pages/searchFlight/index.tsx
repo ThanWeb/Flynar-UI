@@ -136,59 +136,89 @@ const SearchFlight = (): ReactElement => {
                 </div>
               </div>
             </div>
-            <div className='filter-box flex'>
-              <div className='accordion w-[268px] p-[20px] rounded-lg' style={{ width: '268px', padding: '20px', borderRadius: '16px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)' }} id='accordionPanelsStayOpenExample'>
-                <p style={{ fontWeight: 'bold' }}>Filter</p>
-                <div id='accordion-collapse' data-accordion='collapse'>
-                  <h2 id='accordion-collapse-heading-2'>
-                    <button type='button' className='flex items-center justify-between w-full p-5 font-medium text-left text-gray-500' data-accordion-target='#accordion-collapse-body-2' aria-expanded='false' aria-controls='accordion-collapse-body-2'>
-                      <span><FontAwesomeIcon className='pr-[5px]' icon={faDollarSign}/>Harga</span>
-                      <svg data-accordion-icon className='w-6 h-6 shrink-0' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'></path></svg>
-                    </button>
-                  </h2>
-                  <div id='accordion-collapse-body-2' className='hidden' aria-labelledby='accordion-collapse-heading-2'>
-                    <div className='price-filter-section p-5'>
-                      <div className='start-from'>
-                        <form>
-                          <div className='grid md:grid-cols-2 md:gap-6'>
-                            <div className='relative z-0 w-full mb-6 group'>
-                              <input type='text' name='floating_first_name' id='floating_first_name' className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer' placeholder=' ' required />
-                              <label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Mulai</label>
+            <div className='flex'>
+              <div className='filter-box flex'>
+                <div className='accordion w-[268px] p-[20px] rounded-lg' style={{ width: '268px', padding: '20px', borderRadius: '16px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)' }} id='accordionPanelsStayOpenExample'>
+                  <p style={{ fontWeight: 'bold' }}>Filter</p>
+                  <div id='accordion-collapse-filter-box' data-accordion='collapse'>
+                    <h2 id='accordion-collapse-filter-box-heading-1'>
+                      <button type='button' className='flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 rounded-t-xl dark:text-gray-400' data-accordion-target='#accordion-collapse-body-1' aria-expanded='true' aria-controls='accordion-collapse-body-1'>
+                        <span><FontAwesomeIcon className='pr-[5px]' icon={faCube}/>Fasilitas</span>
+                        <svg data-accordion-icon className='w-6 h-6 rotate-180 shrink-0' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'></path></svg>
+                      </button>
+                    </h2>
+                    <div id='accordion-collapse-filter-box-body-1' className='hidden' aria-labelledby='accordion-collapse-heading-1'>
+                      <div className='flex items-center mr-4 p-2'>
+                        <input id='checkbox-fasilitas-1' type='checkbox' value='' className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'/>
+                        <label className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'>Baggage</label>
+                      </div>
+                      <div className='flex items-center mr-4 p-2'>
+                        <input id='checkbox-fasilitas-2' type='checkbox' value='' className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'/>
+                        <label className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'>Cabin</label>
+                      </div>
+                      <div className='flex items-center mr-4 p-2'>
+                        <input id='checkbox-fasilitas-3' type='checkbox' value='' className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'/>
+                        <label className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'>In Flight Entertaiment</label>
+                      </div>
+                    </div>
+                    <h2 id='accordion-collapse-filter-box-heading-2'>
+                      <button type='button' className='flex items-center justify-between w-full p-5 font-medium text-left text-gray-500' data-accordion-target='#accordion-collapse-body-2' aria-expanded='false' aria-controls='accordion-collapse-body-2'>
+                        <span><FontAwesomeIcon className='pr-[5px]' icon={faDollarSign}/>Harga</span>
+                        <svg data-accordion-icon className='w-6 h-6 shrink-0' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'></path></svg>
+                      </button>
+                    </h2>
+                    <div id='accordion-collapse-filter-box-body-2' className='hidden' aria-labelledby='accordion-collapse-heading-2'>
+                      <div className='price-filter-section p-5'>
+                        <div className='start-from'>
+                          <form>
+                            <div className='grid md:grid-cols-2 md:gap-6'>
+                              <div className='relative z-0 w-full mb-6 group'>
+                                <input type='text' name='floating_first_name' id='floating_first_name' className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer' placeholder=' ' required />
+                                <label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Mulai</label>
+                              </div>
+                              <div className='relative z-0 w-full mb-6 group'>
+                                <input type='text' name='floating_last_name' id='floating_last_name' className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer' placeholder=' ' required />
+                                <label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Sampai</label>
+                              </div>
                             </div>
-                            <div className='relative z-0 w-full mb-6 group'>
-                              <input type='text' name='floating_last_name' id='floating_last_name' className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer' placeholder=' ' required />
-                              <label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Sampai</label>
-                            </div>
-                          </div>
-                          <button type='submit' className='text-white bg-darkPurple hover:bg-violet focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Cari</button>
-                        </form>
+                            <button type='submit' className='text-white bg-darkPurple hover:bg-violet focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Cari</button>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div id='accordion-collapse' data-accordion='collapse' className='w-[657px] h-[127px]'>
+                <h2 id='accordion-collapse-heading-1'>
+                  <button type='button' className='flex items-center justify-between w-full p-5 font-medium text-left border border-b-1 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800' data-accordion-target='#accordion-collapse-body-1' aria-expanded='true' aria-controls='accordion-collapse-body-1'>
+                    <div className='flex items-center'>
+                      <img src='/images/logoPesawat.svg' width={30} height={30} alt='logo' />
+                      <div className='ms-3'>
+                        <p className='text-xs font-semibold'>Jet Air - Economy</p>
+                        <div className='flex items-center'>
+                          <p className='text-sm mt-3 font-bold'>07:00 <br /> <span className='text-xs'>JKT</span></p>
+                          <div className='ml-auto flex items-center'>
+                            <div className='relative'>
+                              <p className='absolute -top-6 text-xs left-1/2 transform -translate-x-1/2'>4h 0m</p>
+                              <img src='/icons/panah.svg' width={200} height={50} alt='logo' className='ms-4'/>
+                              <p className='absolute left-1/2 transform -translate-x-1/2 bottom-0 -mb-6 text-xs'>Direct</p>
+                            </div>
+                            <p className='text-sm mt-3 font-bold ml-2'>11:00 <br /> <span className='text-xs'>MLB</span></p>
+                            <img src='icons/koper.svg' width={30} height={30} alt='logo' className='ml-7'/>
+                            <div className='ml-14'>
+                              <p className='font-bold text-purple-800'>IDR 4.950.000</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <table className='flex table-fixed justify-center py-2 overflow-y-auto h-80 pb-5'>
-          <tbody>
-            {flightData.map((flights) => {
-              if (flights.airline === 'Jet Air') {
-                return (
-                  <tr key={flights.id} className='border-b-2 h-16'>
-                    <td className='w-40 text-center'>
-                      {flights.airline}
-                    </td>
-                  </tr>
-                )
-              }
-            }
-            )
-            }
-          </tbody>
-        </table>
       </div>
     </div>
   )

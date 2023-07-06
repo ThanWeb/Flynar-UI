@@ -1,4 +1,5 @@
-import { useState, type ReactElement, useEffect, SetStateAction } from 'react'
+import { useState, useEffect } from 'react';
+import type { ReactElement, SetStateAction } from 'react';
 import DefaultLayout from '@/layouts/default'
 import axios from 'axios'
 import Image from 'next/image'
@@ -9,7 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import CustomSelectSearch from '@/components/CustomSelectSearch'
 import CustomSelectClass from '@/components/CustomSelectClass'
 import CustomSelectPassenger from '@/components/CustomSelectPassenger'
-import Link from 'next/Link'
+import Link from 'next/link'
 import { useRouter } from 'next/router';
 
 const Home = (): ReactElement => {
